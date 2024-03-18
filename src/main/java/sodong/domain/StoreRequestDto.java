@@ -1,6 +1,6 @@
 package sodong.domain;
 
-public class StoreForm {
+public class StoreRequestDto {
     private Long userId;
     private String name;
     private String address;

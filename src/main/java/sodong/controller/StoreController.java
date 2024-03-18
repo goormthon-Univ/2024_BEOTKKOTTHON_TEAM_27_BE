@@ -3,7 +3,7 @@ package sodong.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sodong.domain.Store;
-import sodong.domain.StoreForm;
+import sodong.domain.StoreRequestDto;
 import sodong.domain.StoreResponseDto;
 import sodong.service.StoreService;
 
@@ -24,12 +24,12 @@ public class StoreController {
     @GetMapping("/all")
     public List<Store> list(){return storeService.findStores();}
     @PostMapping
-    public StoreResponseDto create(@RequestBody StoreForm storeForm){
+    public StoreResponseDto create(@RequestBody StoreRequestDto storeRequestDto){
         Store store = new Store();
-        store.setUserId(storeForm.getUserId());
-        store.setAddress(storeForm.getAddress());
-        store.setName(storeForm.getName());
-        store.setOperationHours(storeForm.getOperationHours());
+        store.setUserId(storeRequestDto.getUserId());
+        store.setAddress(storeRequestDto.getAddress());
+        store.setName(storeRequestDto.getName());
+        store.setOperationHours(storeRequestDto.getOperationHours());
 
         Store createdStore = storeService.enrollStore(store);
 
