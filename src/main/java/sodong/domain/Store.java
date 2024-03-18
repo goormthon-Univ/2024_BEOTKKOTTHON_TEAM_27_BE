@@ -1,7 +1,6 @@
 package sodong.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Store {
     private Long id;

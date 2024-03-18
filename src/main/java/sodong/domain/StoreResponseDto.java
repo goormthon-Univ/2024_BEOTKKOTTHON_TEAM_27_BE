@@ -3,7 +3,6 @@ package sodong.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class StoreResponseDto {
