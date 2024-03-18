@@ -10,7 +10,7 @@ public class MemoryUserRepository implements UserRepository{
     private static Map<Long, User> store = new HashMap<>();
     @Override
     public User save(User user) {
-        store.put(user.getId(), user);
+        store.put(user.getUserId(), user);
         return user;
     }
 

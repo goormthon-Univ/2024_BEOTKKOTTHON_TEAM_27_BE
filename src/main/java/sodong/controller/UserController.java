@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping
     public void create(@RequestBody UserForm userForm){
         User user = new User();
-        user.setId(userForm.getUserId());
+        user.setUserId(userForm.getUserId());
         user.setPassword(userForm.getPassword());
         userService.join(user);
     }

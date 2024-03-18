@@ -20,11 +20,11 @@ public class UserService {
     public Long join(User user){
         validateDuplicateUser(user, userRepository);
         userRepository.save(user);
-        return user.getId();
+        return user.getUserId();
     }
 
     private static void validateDuplicateUser(User user, UserRepository userRepository) {
-        userRepository.findById(user.getId()).
+        userRepository.findById(user.getUserId()).
                 ifPresent(u ->{
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
             });

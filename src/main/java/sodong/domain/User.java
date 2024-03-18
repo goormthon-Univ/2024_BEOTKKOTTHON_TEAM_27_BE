@@ -1,15 +1,15 @@
 package sodong.domain;
 
 public class User {
-    private Long id;
+    private Long userId;
     private String password;
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {
