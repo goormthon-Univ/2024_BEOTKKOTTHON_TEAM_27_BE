@@ -1,6 +1,8 @@
 package sodong.domain;
 
 public class UserForm {
+    private Long userId;
+    private String password;
     public Long getUserId() {
         return userId;
     }
@@ -16,9 +18,4 @@ public class UserForm {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private Long userId;
-    private String password;
-
-
 }
