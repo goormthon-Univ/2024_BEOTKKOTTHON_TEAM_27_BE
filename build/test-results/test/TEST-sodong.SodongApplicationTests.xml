@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="sodong.SodongApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-03-19T07:19:10" hostname="jeongchanhoui-MacBookAir.local" time="1.543">
+  <properties/>
+  <testcase name="contextLoads()" classname="sodong.SodongApplicationTests" time="1.543"/>
+  <system-out><![CDATA[16:19:06.590 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [sodong.SodongApplicationTests]: SodongApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:19:06.771 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration sodong.SodongApplication for test class sodong.SodongApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+2024-03-19T16:19:07.494+09:00  INFO 63467 --- [sodong] [    Test worker] sodong.SodongApplicationTests            : Starting SodongApplicationTests using Java 20.0.2.1 with PID 63467 (started by chjung in /Users/chjung/IdeaProjects/2024_BEOTKKOTTHON_TEAM_27_BE_1)
+2024-03-19T16:19:07.500+09:00  INFO 63467 --- [sodong] [    Test worker] sodong.SodongApplicationTests            : No active profile set, falling back to 1 default profile: "default"
+2024-03-19T16:19:10.144+09:00  INFO 63467 --- [sodong] [    Test worker] sodong.SodongApplicationTests            : Started SodongApplicationTests in 3.179 seconds (process running for 5.191)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
