@@ -4,9 +4,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://158.179.173.21:3306/sodong
-    username: chjung99
-    password: cksgh1168
+    url: jdbc:mysql://${RDS_HOST}:3306/sodong
+    username: ${RDS_USERNAME}
+    password: ${RDS_PASSWORD}
 
   jpa:
     open-in-view:
