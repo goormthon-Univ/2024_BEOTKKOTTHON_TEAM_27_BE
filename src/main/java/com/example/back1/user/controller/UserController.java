@@ -14,14 +14,14 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("")
+@RequestMapping("/api")
 public class UserController {
     private final UserService userService;
     private final StoreService storeService;
 
     @GetMapping("/login")
     public LoginResponse login(@RequestBody @Valid UserForm userForm) {
-        Long userId = userService.createUser(userForm.toUser());
+        Long userId = userService.login(userForm.loginId(), userForm.password());
         Long storeId = storeService.findByUserId(userId);
 
         return new LoginResponse(userId, storeId);
