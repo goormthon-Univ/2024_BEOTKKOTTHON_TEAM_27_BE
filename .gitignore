@@ -1,6 +1,6 @@
 HELP.md
 .gradle
-#build/
+build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -25,7 +25,6 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-/src/main/generated/
 
 ### NetBeans ###
 /nbproject/private/
@@ -36,9 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-### Config ###
-src/main/resources/secret.yml
-src/test/resources/secret.yml
-src/main/resources/firebase/*.yml
-.env
