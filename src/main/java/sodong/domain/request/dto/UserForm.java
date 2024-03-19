@@ -1,22 +1,12 @@
 package sodong.domain.request.dto;
 
-public class UserForm {
-    private Long userId;
-    private String password;
+import sodong.domain.User;
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+public record UserForm (
+        String loginId,
+        String password
+) {
+    public User toUser() {
+        return User.createUser(loginId, password);
     }
 }

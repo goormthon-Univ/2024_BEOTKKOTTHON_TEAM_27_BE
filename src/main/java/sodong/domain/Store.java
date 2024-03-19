@@ -1,6 +1,7 @@
 package sodong.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,19 @@ public class Store {
 
     private String name;
     private String address;
-    private String phone;
-    private String operationHours;
+
+    @Builder
+    public Store(User user, String name, String address) {
+        this.user = user;
+        this.name = name;
+        this.address = address;
+    }
+
+    public static Store createStore(User user, String name, String address) {
+        return Store.builder()
+                .user(user)
+                .name(name)
+                .address(address)
+                .build();
+    }
 }

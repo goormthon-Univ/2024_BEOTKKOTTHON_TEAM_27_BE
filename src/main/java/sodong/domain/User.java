@@ -1,22 +1,34 @@
 package sodong.domain;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
+@Table(name = "user")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String loginId;
     private String password;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
+    @Builder
+    public User(String loginId, String password) {
+        this.loginId = loginId;
         this.password = password;
+    }
+
+    public static User createUser(String loginId, String password) {
+        return User.builder()
+                .loginId(loginId)
+                .password(password)
+                .build();
     }
 }
