@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "store")
-public class Store {
+public class Store extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,10 +21,11 @@ public class Store {
     private User user;
 
     private String name;
+
     private String address;
 
     @Builder
-    public Store(User user, String name, String address) {
+    private Store(User user, String name, String address) {
         this.user = user;
         this.name = name;
         this.address = address;
