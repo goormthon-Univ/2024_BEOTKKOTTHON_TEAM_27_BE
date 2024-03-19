@@ -18,6 +18,7 @@ public class User extends BaseTimeEntity {
     private Long id;
 
     private String loginId;
+
     private String password;
 
     @Builder

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StoreService {
     private final StoreRepository storeRepository;
 
+    @Transactional
     public Store enrollStore(Store store) {
         return storeRepository.save(store);
     }
