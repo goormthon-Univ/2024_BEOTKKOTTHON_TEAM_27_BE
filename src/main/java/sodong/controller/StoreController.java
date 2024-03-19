@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import sodong.domain.Store;
 import sodong.domain.StoreRequestDto;
 import sodong.domain.StoreResponseDto;
+import sodong.domain.StoreViewResponseDto;
 import sodong.service.StoreService;
 
 import java.util.Collections;
@@ -18,8 +19,27 @@ public class StoreController {
     @Autowired
     public StoreController(StoreService storeService){this.storeService = storeService;}
     @GetMapping
-    public Optional<Store> getStore(@RequestParam Long storeId){
-        return storeService.findOne(storeId);
+    public StoreViewResponseDto getStore(@RequestParam Long storeId) {
+        Store selectedStore = storeService.findOne(storeId)
+                .orElseThrow(() -> new RuntimeException("Store not found"));
+
+        StoreViewResponseDto.StoreDto storeDto = new StoreViewResponseDto.StoreDto();
+        storeDto.setStoreId(selectedStore.getId());
+        storeDto.setUserId(selectedStore.getUserId());
+        storeDto.setName(selectedStore.getName());
+        storeDto.setAddress(selectedStore.getAddress());
+        storeDto.setPhone(selectedStore.getPhone());
+        storeDto.setOperationHours(selectedStore.getOperationHours());
+        storeDto.setCreatedDate(selectedStore.getCreatedDate());
+        storeDto.setModifiedDate(selectedStore.getModifiedDate());
+
+        StoreViewResponseDto responseDto = new StoreViewResponseDto();
+        responseDto.setSuccess(true);
+        responseDto.setCode(200);
+        responseDto.setMessage("가게 정보 조회에 성공했습니다.");
+        responseDto.setResult(List.of(storeDto));
+
+        return responseDto;
     }
     @GetMapping("/all")
     public List<Store> list(){return storeService.findStores();}
