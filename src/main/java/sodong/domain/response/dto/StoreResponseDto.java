@@ -1,4 +1,4 @@
-package sodong.domain;
+package sodong.domain.response.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

@@ -1,12 +1,7 @@
 package sodong.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import sodong.domain.Store;
 
-import java.util.List;
-import java.util.Optional;
-
-public interface StoreRepository {
-    Store save(Store store);
-    Optional<Store> findById(Long id);
-    List<Store> findAll();
+public interface StoreRepository extends JpaRepository<Store, Long> {
 }

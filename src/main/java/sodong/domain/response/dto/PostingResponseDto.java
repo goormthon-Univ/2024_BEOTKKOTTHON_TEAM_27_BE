@@ -1,4 +1,4 @@
-package sodong.domain;
+package sodong.domain.response.dto;
 
 import java.util.List;
 

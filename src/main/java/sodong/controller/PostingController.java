@@ -2,7 +2,9 @@ package sodong.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sodong.domain.*;
+import sodong.domain.Posting;
+import sodong.domain.request.dto.PostingRequestDto;
+import sodong.domain.response.dto.PostingResponseDto;
 import sodong.service.PostingService;
 
 import java.util.Collections;
@@ -13,31 +15,24 @@ import java.util.Optional;
 @RequestMapping("/api/posting")
 public class PostingController {
     private final PostingService postingService;
+
     @Autowired
-    public PostingController(PostingService postingService){this.postingService = postingService;}
+    public PostingController(PostingService postingService) {
+        this.postingService = postingService;
+    }
+
     @GetMapping
-    public Optional<Posting> getPosting(@RequestParam Long postingId){
+    public Optional<Posting> getPosting(@RequestParam Long postingId) {
         return postingService.findOne(postingId);
     }
-    @GetMapping("/all")
-    public List<Posting> list(){return postingService.findPostings();}
+
+    @GetMapping("/list")
+    public List<Posting> list() {
+        return postingService.findPostings();
+    }
+
     @PostMapping
-    public PostingResponseDto create(@RequestBody PostingRequestDto postingRequestDto){
-        Posting posting = new Posting();
-
-        posting.setStoreId(postingRequestDto.getStoreId());
-        posting.setUserId(postingRequestDto.getUserId());
-        posting.setType(postingRequestDto.getPostingType());
-        posting.setChannel(postingRequestDto.getPostingChannel());
-        posting.setTargetAge(postingRequestDto.getTargetAge());
-        posting.setTargetGender(postingRequestDto.getTargetGender());
-        posting.setPromotionType(postingRequestDto.getPromotionType());
-        posting.setPromotionSubject(postingRequestDto.getPromotionSubject());
-        posting.setPromotionContent(postingRequestDto.getPromotionContent());
-        posting.setSrcFileName(posting.getSrcFileName());
-        posting.setCreatedDate();
-        posting.setModifiedDate();
-
+    public PostingResponseDto create(@RequestBody PostingRequestDto postingRequestDto) {
         Posting createdPosting = postingService.createPosting(posting);
 
         PostingResponseDto responseDto = new PostingResponseDto();
@@ -50,6 +45,7 @@ public class PostingController {
 
         return responseDto;
     }
+
     private static PostingResponseDto.PostingDto getPostingDto(Posting createdPosting) {
         PostingResponseDto.PostingDto postingDto = new PostingResponseDto.PostingDto();
         postingDto.setPostingId(createdPosting.getId());

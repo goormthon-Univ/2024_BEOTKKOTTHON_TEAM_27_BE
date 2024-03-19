@@ -3,21 +3,24 @@ package sodong.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sodong.domain.Store;
-import sodong.domain.StoreRequestDto;
-import sodong.domain.StoreResponseDto;
-import sodong.domain.StoreViewResponseDto;
+import sodong.domain.request.dto.StoreRequestDto;
+import sodong.domain.response.dto.StoreResponseDto;
+import sodong.domain.response.dto.StoreViewResponseDto;
 import sodong.service.StoreService;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/store")
 public class StoreController {
     private final StoreService storeService;
+
     @Autowired
-    public StoreController(StoreService storeService){this.storeService = storeService;}
+    public StoreController(StoreService storeService) {
+        this.storeService = storeService;
+    }
+
     @GetMapping
     public StoreViewResponseDto getStore(@RequestParam Long storeId) {
         Store selectedStore = storeService.findOne(storeId)
@@ -41,10 +44,14 @@ public class StoreController {
 
         return responseDto;
     }
+
     @GetMapping("/all")
-    public List<Store> list(){return storeService.findStores();}
+    public List<Store> list() {
+        return storeService.findStores();
+    }
+
     @PostMapping
-    public StoreResponseDto create(@RequestBody StoreRequestDto storeRequestDto){
+    public StoreResponseDto create(@RequestBody StoreRequestDto storeRequestDto) {
         Store store = new Store();
         store.setUserId(storeRequestDto.getUserId());
         store.setAddress(storeRequestDto.getAddress());

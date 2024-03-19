@@ -1,8 +1,9 @@
-package sodong.domain;
+package sodong.domain.request.dto;
 
 public class UserForm {
     private Long userId;
     private String password;
+
     public Long getUserId() {
         return userId;
     }
