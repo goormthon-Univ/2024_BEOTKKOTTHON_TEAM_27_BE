@@ -8,7 +8,6 @@ import com.example.back1.store.service.dto.response.StoreInformation;
 import com.example.back1.user.controller.dto.request.UserDto;
 import com.example.back1.user.domain.User;
 import com.example.back1.user.service.UserService;
-import jdk.jfr.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
