@@ -11,7 +11,9 @@ import sodong.domain.UserForm;
 import sodong.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
 //@RequiredArgsConstructor
 @RestController
 public class UserController {
@@ -37,6 +39,27 @@ public class UserController {
         user.setId(userForm.getUserId());
         user.setPassword(userForm.getPassword());
         userService.join(user);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody Map<String, String> userCredentials) {
+        String id = userCredentials.get("id");
+        String password = userCredentials.get("password");
+
+        // ID와 비밀번호가 모두 제공되었는지 확인
+        if (id == null || password == null) {
+            return "로그인 실패: ID 또는 비밀번호가 누락되었습니다.";
+        }
+
+        // 주어진 ID로 사용자를 찾음
+        Optional<User> userOptional = userService.findOne(Long.parseLong(id));
+
+        // 사용자가 존재하고, 비밀번호가 일치하는지 확인
+        if (userOptional.isPresent() && userOptional.get().getPassword().equals(password)) {
+            return "로그인 성공";
+        } else {
+            return "로그인 실패: ID 또는 비밀번호가 잘못되었습니다.";
+        }
     }
 //    @PostMapping("/login")
 //    public String login(@RequestBody Map<String, String> user) {
