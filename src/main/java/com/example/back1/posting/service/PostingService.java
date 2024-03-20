@@ -1,14 +1,17 @@
 package com.example.back1.posting.service;
 
-import com.example.back1.dto.response.ImageResponse;
-import com.example.back1.dto.response.TextResponse;
 import com.example.back1.fastapi.dto.request.ImageRequest;
 import com.example.back1.fastapi.dto.request.TextRequest;
+import com.example.back1.fastapi.dto.response.ImageResponse;
+import com.example.back1.fastapi.dto.response.PromotionSimple;
+import com.example.back1.fastapi.dto.response.StoreSimple;
+import com.example.back1.fastapi.dto.response.TextResponse;
 import com.example.back1.posting.domain.Posting;
 import com.example.back1.posting.domain.PostingRepository;
 import com.example.back1.posting.service.dto.response.PostingInformation;
 import com.example.back1.store.domain.Store;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -22,8 +25,11 @@ import java.util.stream.Collectors;
 public class PostingService {
     private final PostingRepository postingRepository;
 
-    private final String FAST_API_URL = "http://158.180.66.224";
-    private final String POSTING_PORT = "8001";
+    @Value("${deploy.base_url}")
+    private String FAST_API_URL;
+
+    @Value("${deploy.posting_port}")
+    private String POSTING_PORT;
 
     @Transactional
     public Posting createPosting(Posting posting) {
@@ -31,29 +37,29 @@ public class PostingService {
     }
 
     @Transactional
-    public void updatePostingText(Posting posting) {
-        String postingText = generateText_FastAPI(posting, posting.getStore());
-        posting.updatePostingText(postingText);
+    public Posting updatePostingText(Posting posting) {
+        String updatePostingText = generateText_FastAPI(posting, posting.getStore());
+        posting.updatePostingText(updatePostingText);
+        return posting;
     }
 
     @Transactional
-    public void updatePostingImage(Posting posting) {
-        String postingImage = generateImage_FastAPI(posting, posting.getStore());
-        posting.updatePostingImage(postingImage);
+    public Posting updatePostingImage(Posting posting) {
+        String updatePostingImage = generateImage_FastAPI(posting, posting.getStore());
+        posting.updatePostingImage(updatePostingImage);
+        return posting;
     }
 
     private String generateText_FastAPI(Posting posting, Store store) {
         RestTemplate restTemplate = new RestTemplate();
         String url = FAST_API_URL + ":" + POSTING_PORT + "/api/posting/text";
 
-        TextRequest requestBody = new TextRequest(new TextRequest.Store(store.getName(), store.getAddress()),
-                new TextRequest.Promotion(posting.getPostingChannel(), posting.getPromotionType(), posting.getPromotionSubject(), posting.getPromotionContent(), posting.getTargetGender(), posting.getTargetAge()));
+        TextRequest requestBody = new TextRequest(
+                new StoreSimple(store.getName(), store.getAddress()),
+                new PromotionSimple(posting.getPostingChannel(), posting.getPromotionType(), posting.getPromotionSubject(), posting.getPromotionContent(), posting.getTargetGender(), posting.getTargetAge())
+        );
 
         TextResponse responseBody = restTemplate.postForObject(url, requestBody, TextResponse.class);
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
-        System.out.println(responseBody);
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
-
         return responseBody.posting_text();
     }
 
@@ -61,16 +67,14 @@ public class PostingService {
         RestTemplate restTemplate = new RestTemplate();
         String url = FAST_API_URL + ":" + POSTING_PORT + "/api/posting/image";
 
-        ImageRequest requestBody = new ImageRequest(new ImageRequest.Store(store.getName(), store.getAddress()),
-                new ImageRequest.Promotion(posting.getPostingChannel(), posting.getPromotionType(), posting.getPromotionSubject(), posting.getPromotionContent(), posting.getTargetGender(), posting.getTargetAge()),
-                posting.getFileName());
+        ImageRequest requestBody = new ImageRequest(
+                new StoreSimple(store.getName(), store.getAddress()),
+                new PromotionSimple(posting.getPostingChannel(), posting.getPromotionType(), posting.getPromotionSubject(), posting.getPromotionContent(), posting.getTargetGender(), posting.getTargetAge()),
+                posting.getFileName()
+        );
 
         ImageResponse responseBody = restTemplate.postForObject(url, requestBody, ImageResponse.class);
         return responseBody.new_image_url();
-    }
-
-    public void updatePostingText() {
-
     }
 
     public Posting findById(Long postingId) {
@@ -95,5 +99,15 @@ public class PostingService {
                 .collect(Collectors.toList());
 
         return postingInformationList;
+    }
+
+    @Transactional
+    public void saveAndFlush(Posting posting) {
+        postingRepository.saveAndFlush(posting);
+    }
+
+    @Transactional
+    public void save(Posting posting) {
+        postingRepository.save(posting);
     }
 }
