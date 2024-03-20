@@ -18,5 +18,7 @@ spring:
         format_sql: true
         default_batch_fetch_size: 50
 
-server:
-  port: 8080
+deploy.base_url: ${BASE_URL}
+deploy.gpt_port: 8000
+deploy.posting_port: 8001
+deploy.storage_port: 8002

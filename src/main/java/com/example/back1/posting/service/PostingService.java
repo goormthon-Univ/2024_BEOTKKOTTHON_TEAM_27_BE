@@ -11,6 +11,7 @@ import com.example.back1.posting.domain.PostingRepository;
 import com.example.back1.posting.service.dto.response.PostingInformation;
 import com.example.back1.store.domain.Store;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -24,8 +25,11 @@ import java.util.stream.Collectors;
 public class PostingService {
     private final PostingRepository postingRepository;
 
-    private final String FAST_API_URL = "http://localhost";
-    private final String POSTING_PORT = "8001";
+    @Value("${deploy.base_url}")
+    private String FAST_API_URL;
+
+    @Value("${deploy.posting_port}")
+    private String POSTING_PORT;
 
     @Transactional
     public Posting createPosting(Posting posting) {
