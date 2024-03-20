@@ -33,13 +33,17 @@ public class PostingService {
     }
 
     @Transactional
-    public String updatePostingText(Posting posting) {
-        return generateText_FastAPI(posting, posting.getStore());
+    public Posting updatePostingText(Posting posting) {
+        String updatePostingText = generateText_FastAPI(posting, posting.getStore());
+        posting.updatePostingText(updatePostingText);
+        return posting;
     }
 
     @Transactional
-    public String updatePostingImage(Posting posting) {
-        return generateImage_FastAPI(posting, posting.getStore());
+    public Posting updatePostingImage(Posting posting) {
+        String updatePostingImage = generateImage_FastAPI(posting, posting.getStore());
+        posting.updatePostingImage(updatePostingImage);
+        return posting;
     }
 
     private String generateText_FastAPI(Posting posting, Store store) {
@@ -50,23 +54,8 @@ public class PostingService {
                 new StoreSimple(store.getName(), store.getAddress()),
                 new PromotionSimple(posting.getPostingChannel(), posting.getPromotionType(), posting.getPromotionSubject(), posting.getPromotionContent(), posting.getTargetGender(), posting.getTargetAge())
         );
-//        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
-//        System.out.println(requestBody);
-//        System.out.println("Store Name: " + requestBody.store().getName());
-//        System.out.println("Store Address: " + requestBody.store().getAddress());
-//        System.out.println("Posting Channel: " + requestBody.promotion().getChannel());
-//        System.out.println("Promotion Type: " + requestBody.promotion().getType());
-//        System.out.println("Promotion Subject: " + requestBody.promotion().getSubject());
-//        System.out.println("Promotion Content: " + requestBody.promotion().getContent());
-//        System.out.println("Target Gender: " + requestBody.promotion().getTargetGender());
-//        System.out.println("Target Age: " + requestBody.promotion().getTargetAge());
-//
-//        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
-//
+
         TextResponse responseBody = restTemplate.postForObject(url, requestBody, TextResponse.class);
-//        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
-//        System.out.println(responseBody);
-//        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
         return responseBody.posting_text();
     }
 

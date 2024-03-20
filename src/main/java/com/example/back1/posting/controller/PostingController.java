@@ -48,12 +48,12 @@ public class PostingController {
         Posting posting = postingService.findById(request.postingId());
 
         if (request.modifyTarget().equals("Text")) {
-            posting.updatePostingText(postingService.updatePostingText(posting));
+            posting = postingService.updatePostingText(posting);
         } else if (request.modifyTarget().equals("Image")) {
-            posting.updatePostingImage(postingService.updatePostingImage(posting));
+            posting = postingService.updatePostingImage(posting);
         }
 
-        postingService.save(posting);
+        postingService.saveAndFlush(posting);
         return new BaseResponse(
                 Boolean.TRUE,
                 "200",
