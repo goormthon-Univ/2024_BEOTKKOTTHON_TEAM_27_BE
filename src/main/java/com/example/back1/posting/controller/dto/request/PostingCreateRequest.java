@@ -5,7 +5,7 @@ import com.example.back1.store.domain.Store;
 
 import java.util.ArrayList;
 
-public record PostingRequestDto(
+public record PostingCreateRequest(
         Long userId,
         Long storeId,
         String postingType,
@@ -15,11 +15,11 @@ public record PostingRequestDto(
         String promotionType,
         String promotionSubject,
         String promotionContent,
-        String srcFileName
+        String fileName
 ) {
     public Posting toPosting(Store store) {
         return Posting.createPosting(
-                store, postingChannel, String.join(" ,", targetAge), String.join(" ,", targetGender), promotionType, promotionSubject, promotionContent, srcFileName
+                store, postingType, postingChannel, String.join(" ,", targetAge), String.join(" ,", targetGender), promotionType, promotionSubject, promotionContent, fileName
         );
     }
 }

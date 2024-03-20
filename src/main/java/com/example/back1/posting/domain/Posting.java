@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,7 +23,8 @@ public class Posting extends BaseTimeEntity {
     @JoinColumn(name = "store_id", referencedColumnName = "id")
     private Store store;
 
-    private String channel; // Instagram, Daangn, KakaoChannel, KakaoMap
+    private String postingType;
+    private String postingChannel; // Instagram, Daangn, KakaoChannel, KakaoMap
 
     private String targetAge; // 10대, 20대, 30대, 40대, 50대, 기타
     private String targetGender; // 남자, 여자
@@ -31,34 +33,80 @@ public class Posting extends BaseTimeEntity {
     private String promotionSubject;
     private String promotionContent;
 
-    private String srcFileName;
+    private String fileName;
+
+    private String postingText = null;
+    private Long postingText_modifiedCount = 0L;
+    private LocalDateTime postingText_createdTime;
+    private LocalDateTime postingText_modifiedTime;
+
+    private String postingImage = null;
+    private Long postingImage_modifiedCount = 0L;
+    private LocalDateTime postingImage_createdTime;
+    private LocalDateTime postingImage_modifiedTime;
 
     @Builder
-    public Posting(Store store, String channel, String targetAge,
+    public Posting(Store store, String postingType, String postingChannel, String targetAge,
                    String targetGender, String promotionType, String promotionSubject,
-                   String promotionContent, String srcFileName) {
+                   String promotionContent, String fileName) {
         this.store = store;
-        this.channel = channel;
+        this.postingType = postingType;
+        this.postingChannel = postingChannel;
         this.targetAge = targetAge;
         this.targetGender = targetGender;
         this.promotionType = promotionType;
         this.promotionSubject = promotionSubject;
         this.promotionContent = promotionContent;
-        this.srcFileName = srcFileName;
+        this.fileName = fileName;
+
+        this.postingText = null;
+        this.postingText_modifiedCount = 0L;
+        this.postingText_createdTime = null;
+        this.postingText_modifiedTime = null;
+
+        this.postingImage = null;
+        this.postingImage_modifiedCount = 0L;
+        this.postingImage_createdTime = null;
+        this.postingImage_modifiedTime = null;
     }
 
-    public static Posting createPosting(Store store, String channel, String targetAge,
+    public static Posting createPosting(Store store, String postingType, String postingChannel, String targetAge,
                                         String targetGender, String promotionType, String promotionSubject,
-                                        String promotionContent, String srcFileName) {
+                                        String promotionContent, String fileName) {
         return Posting.builder()
                 .store(store)
-                .channel(channel)
+                .postingType(postingType)
+                .postingChannel(postingChannel)
                 .targetAge(targetAge)
                 .targetGender(targetGender)
                 .promotionType(promotionType)
                 .promotionSubject(promotionSubject)
                 .promotionContent(promotionContent)
-                .srcFileName(srcFileName)
+                .fileName(fileName)
                 .build();
+    }
+
+    public void updatePostingText(String postingText) {
+        this.postingText = postingText;
+
+        if (this.postingText_modifiedCount == 0) {
+            this.postingText_createdTime = LocalDateTime.now();
+        } else {
+            this.postingText_modifiedTime = LocalDateTime.now();
+        }
+
+        this.postingText_modifiedCount++;
+    }
+
+    public void updatePostingImage(String postingImage) {
+        this.postingImage = postingImage;
+
+        if (this.postingImage_modifiedCount == 0) {
+            this.postingImage_createdTime = LocalDateTime.now();
+        } else {
+            this.postingImage_modifiedTime = LocalDateTime.now();
+        }
+
+        this.postingImage_modifiedCount++;
     }
 }
