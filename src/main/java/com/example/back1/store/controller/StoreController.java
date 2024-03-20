@@ -1,5 +1,6 @@
 package com.example.back1.store.controller;
 
+import com.example.back1.global.BaseResponse;
 import com.example.back1.store.controller.dto.request.StoreCreateRequest;
 import com.example.back1.store.domain.Store;
 import com.example.back1.store.service.StoreService;
@@ -20,14 +21,27 @@ public class StoreController {
     private final UserService userService;
 
     @PostMapping("")
-    public StoreCreateResponse createStore(@RequestBody @Valid StoreCreateRequest request) {
+    public BaseResponse createStore(@RequestBody @Valid StoreCreateRequest request) {
         User user = userService.findById(request.userId());
         Store store = storeService.enrollStore(Store.createStore(user, request.name(), request.address()));
-        return new StoreCreateResponse(user.getId(), store.getId());
+
+        return new BaseResponse(
+                Boolean.TRUE,
+                "200",
+                "OK",
+                new StoreCreateResponse(user.getId(), store.getId())
+        );
     }
+
     @GetMapping("/{userId}/{storeId}")
-    public StoreInformation getStore(@PathVariable ("userId") Long userId, @PathVariable ("storeId") Long storeId) {
+    public BaseResponse getStore(@PathVariable ("userId") Long userId, @PathVariable ("storeId") Long storeId) {
         Store store = storeService.findById(storeId);
-        return new StoreInformation(userId, storeId, store.getName(), store.getAddress());
+
+        return new BaseResponse(
+                Boolean.TRUE,
+                "200",
+                "OK",
+                new StoreInformation(userId, storeId, store.getName(), store.getAddress())
+        );
     }
 }
