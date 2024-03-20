@@ -3,15 +3,15 @@ package com.example.back1.posting.controller.dto.request;
 import com.example.back1.posting.domain.Posting;
 import com.example.back1.store.domain.Store;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public record PostingCreateRequest(
         Long userId,
         Long storeId,
         String postingType,
         String postingChannel,
-        ArrayList<String> targetAge,
-        ArrayList<String> targetGender,
+        List<String> targetAge,
+        List<String> targetGender,
         String promotionType,
         String promotionSubject,
         String promotionContent,

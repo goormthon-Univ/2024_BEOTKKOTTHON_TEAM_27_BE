@@ -5,7 +5,10 @@ import com.example.back1.user.controller.dto.request.UserForm;
 import com.example.back1.user.service.UserService;
 import com.example.back1.user.service.dto.response.LoginResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 

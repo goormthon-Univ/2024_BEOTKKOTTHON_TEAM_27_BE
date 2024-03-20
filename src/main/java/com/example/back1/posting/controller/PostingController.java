@@ -28,13 +28,13 @@ public class PostingController {
     public PostingBasicResponse createPosting(@RequestBody @Valid PostingCreateRequest request) {
         Store store = storeService.findById(request.storeId());
         Posting posting = request.toPosting(store);
-        Posting savedPosting = postingService.createPosting(posting);
 
-        postingService.updatePostingText(savedPosting);
+        postingService.updatePostingText(posting);
         if (request.postingType().equals("Both")) {
-            postingService.updatePostingImage(savedPosting);
+            postingService.updatePostingImage(posting);
         }
 
+        Posting savedPosting = postingService.createPosting(posting);
         return new PostingBasicResponse(request.userId(), store.getId(), savedPosting.getId());
     }
 
@@ -43,11 +43,12 @@ public class PostingController {
         Posting posting = postingService.findById(request.postingId());
 
         if (request.modifyTarget().equals("Text")) {
-            postingService.updatePostingText(posting);
+            posting.updatePostingText(postingService.updatePostingText(posting));
         } else if (request.modifyTarget().equals("Image")) {
-            postingService.updatePostingImage(posting);
+            posting.updatePostingImage(postingService.updatePostingImage(posting));
         }
 
+        postingService.save(posting);
         return new PostingBasicResponse(request.userId(), request.userId(), request.postingId());
     }
 

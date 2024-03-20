@@ -5,7 +5,6 @@ import com.example.back1.store.domain.Store;
 import com.example.back1.store.service.StoreService;
 import com.example.back1.store.service.dto.response.StoreCreateResponse;
 import com.example.back1.store.service.dto.response.StoreInformation;
-import com.example.back1.user.controller.dto.request.UserDto;
 import com.example.back1.user.domain.User;
 import com.example.back1.user.service.UserService;
 import lombok.RequiredArgsConstructor;
