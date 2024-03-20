@@ -2,7 +2,6 @@ package com.example.back1.posting.controller;
 
 import com.example.back1.global.BaseResponse;
 import com.example.back1.posting.controller.dto.request.PostingCreateRequest;
-import com.example.back1.posting.controller.dto.request.PostingFindRequest;
 import com.example.back1.posting.controller.dto.request.PostingModifyRequest;
 import com.example.back1.posting.domain.Posting;
 import com.example.back1.posting.service.PostingService;
