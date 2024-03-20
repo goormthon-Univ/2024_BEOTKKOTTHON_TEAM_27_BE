@@ -26,10 +26,9 @@ public class StoreController {
         Store store = storeService.enrollStore(Store.createStore(user, request.name(), request.address()));
         return new StoreCreateResponse(user.getId(), store.getId());
     }
-
-    @GetMapping("")
-    public StoreInformation getStore(@RequestBody @Valid UserDto request) {
-        Store store = storeService.findById(request.storeId());
-        return new StoreInformation(request.userId(), request.storeId(), store.getName(), store.getAddress());
+    @GetMapping("/{userId}/{storeId}")
+    public StoreInformation getStore(@PathVariable ("userId") Long userId, @PathVariable ("storeId") Long storeId) {
+        Store store = storeService.findById(storeId);
+        return new StoreInformation(userId, storeId, store.getName(), store.getAddress());
     }
 }
