@@ -19,6 +19,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.Boolean.*;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -50,9 +52,23 @@ public class PostingService {
         return posting;
     }
 
+    public Boolean canModifyText(Posting posting) {
+        if (posting.getPostingText_modifiedCount() >= 3) {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    public Boolean canModifyImage(Posting posting) {
+        if (posting.getPostingImage_modifiedCount() >= 3) {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
     private String generateText_FastAPI(Posting posting, Store store) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = FAST_API_URL + ":" + POSTING_PORT + "/api/posting/text";
+        String url = "http://" + FAST_API_URL + ":" + POSTING_PORT + "/api/posting/text";
 
         TextRequest requestBody = new TextRequest(
                 new StoreSimple(store.getName(), store.getAddress()),
@@ -65,7 +81,7 @@ public class PostingService {
 
     private String generateImage_FastAPI(Posting posting, Store store) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = FAST_API_URL + ":" + POSTING_PORT + "/api/posting/image";
+        String url = "http://" + FAST_API_URL + ":" + POSTING_PORT + "/api/posting/image";
 
         ImageRequest requestBody = new ImageRequest(
                 new StoreSimple(store.getName(), store.getAddress()),
@@ -90,11 +106,13 @@ public class PostingService {
                         posting.getPostingType(),
                         posting.getPostingChannel(),
                         posting.getPostingText(),
-                        posting.getPostingText_createdTime(),
-                        posting.getPostingText_modifiedTime(),
+                        posting.getPostingText_modifiedCount(),
+                        posting.getPostingText_createdDate(),
+                        posting.getPostingText_modifiedDate(),
                         posting.getPostingImage(),
-                        posting.getPostingImage_createdTime(),
-                        posting.getPostingImage_modifiedTime()
+                        posting.getPostingImage_modifiedCount(),
+                        posting.getPostingImage_createdDate(),
+                        posting.getPostingImage_modifiedDate()
                 ))
                 .collect(Collectors.toList());
 
@@ -104,10 +122,5 @@ public class PostingService {
     @Transactional
     public void saveAndFlush(Posting posting) {
         postingRepository.saveAndFlush(posting);
-    }
-
-    @Transactional
-    public void save(Posting posting) {
-        postingRepository.save(posting);
     }
 }

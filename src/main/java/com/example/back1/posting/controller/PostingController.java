@@ -46,20 +46,29 @@ public class PostingController {
     @PutMapping("")
     public BaseResponse updatePosting(@RequestBody @Valid PostingModifyRequest request) {
         Posting posting = postingService.findById(request.postingId());
+        Boolean canModify = Boolean.FALSE;
 
-        if (request.modifyTarget().equals("Text")) {
-            posting = postingService.updatePostingText(posting);
-        } else if (request.modifyTarget().equals("Image")) {
-            posting = postingService.updatePostingImage(posting);
+        if ("Text".equals(request.modifyTarget())) {
+            canModify = postingService.canModifyText(posting);
+            if (canModify) {
+                posting = postingService.updatePostingText(posting);
+                postingService.saveAndFlush(posting);
+            }
+        } else if ("Image".equals(request.modifyTarget())) {
+            canModify = postingService.canModifyImage(posting);
+            if (canModify) {
+                posting = postingService.updatePostingImage(posting);
+                postingService.saveAndFlush(posting);
+            }
         }
 
-        postingService.saveAndFlush(posting);
+        String message = canModify ? "OK" : request.modifyTarget() + "을 3번을 초과하여 수정할 수 없습니다.";
+
         return new BaseResponse(
-                Boolean.TRUE,
+                canModify,
                 "200",
-                "OK",
-                new PostingBasicResponse(request.userId(), request.userId(), request.postingId())
-        );
+                message,
+                new PostingBasicResponse(request.userId(), request.userId(), request.postingId()));
     }
 
     @GetMapping("/{userId}/{storeId}/{postingId}")
@@ -70,7 +79,9 @@ public class PostingController {
                 Boolean.TRUE,
                 "200",
                 "OK",
-                new PostingFindResponse(userId, storeId, new PostingInformation(postingId, posting.getPostingType(), posting.getPostingChannel(), posting.getPostingText(), posting.getPostingText_createdTime(), posting.getPostingText_modifiedTime(), posting.getPostingImage(), posting.getPostingImage_createdTime(), posting.getPostingImage_modifiedTime()))
+                new PostingFindResponse(userId, storeId, new PostingInformation(postingId, posting.getPostingType(), posting.getPostingChannel(),
+                        posting.getPostingText(), posting.getPostingText_modifiedCount(), posting.getPostingText_createdDate(), posting.getPostingText_modifiedDate(),
+                        posting.getPostingImage(), posting.getPostingImage_modifiedCount(), posting.getPostingImage_createdDate(), posting.getPostingImage_modifiedDate()))
         );
     }
 
