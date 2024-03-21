@@ -9,10 +9,12 @@ public record PostingInformation(
         String postingChannel,
 
         String postingText,
+        Long postingText_modifiedCount,
         LocalDateTime postingText_createdDate,
         LocalDateTime postingText_modifiedDate,
 
         String postingImage,
+        Long postingImage_modifiedCount,
         LocalDateTime postingImage_createdDate,
         LocalDateTime postingImage_modifiedDate
 ) {

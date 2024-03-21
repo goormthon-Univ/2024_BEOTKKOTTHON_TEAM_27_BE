@@ -90,9 +90,11 @@ public class PostingService {
                         posting.getPostingType(),
                         posting.getPostingChannel(),
                         posting.getPostingText(),
+                        posting.getPostingText_modifiedCount(),
                         posting.getPostingText_createdTime(),
                         posting.getPostingText_modifiedTime(),
                         posting.getPostingImage(),
+                        posting.getPostingImage_modifiedCount(),
                         posting.getPostingImage_createdTime(),
                         posting.getPostingImage_modifiedTime()
                 ))
@@ -104,10 +106,5 @@ public class PostingService {
     @Transactional
     public void saveAndFlush(Posting posting) {
         postingRepository.saveAndFlush(posting);
-    }
-
-    @Transactional
-    public void save(Posting posting) {
-        postingRepository.save(posting);
     }
 }

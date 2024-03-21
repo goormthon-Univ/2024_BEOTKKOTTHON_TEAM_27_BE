@@ -70,7 +70,9 @@ public class PostingController {
                 Boolean.TRUE,
                 "200",
                 "OK",
-                new PostingFindResponse(userId, storeId, new PostingInformation(postingId, posting.getPostingType(), posting.getPostingChannel(), posting.getPostingText(), posting.getPostingText_createdTime(), posting.getPostingText_modifiedTime(), posting.getPostingImage(), posting.getPostingImage_createdTime(), posting.getPostingImage_modifiedTime()))
+                new PostingFindResponse(userId, storeId, new PostingInformation(postingId, posting.getPostingType(), posting.getPostingChannel(),
+                        posting.getPostingText(), posting.getPostingText_modifiedCount(), posting.getPostingText_createdTime(), posting.getPostingText_modifiedTime(),
+                        posting.getPostingImage(), posting.getPostingImage_modifiedCount(), posting.getPostingImage_createdTime(), posting.getPostingImage_modifiedTime()))
         );
     }
 
