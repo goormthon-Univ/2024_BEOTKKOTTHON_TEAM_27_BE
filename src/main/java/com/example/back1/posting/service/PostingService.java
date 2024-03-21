@@ -91,12 +91,12 @@ public class PostingService {
                         posting.getPostingChannel(),
                         posting.getPostingText(),
                         posting.getPostingText_modifiedCount(),
-                        posting.getPostingText_createdTime(),
-                        posting.getPostingText_modifiedTime(),
+                        posting.getPostingText_createdDate(),
+                        posting.getPostingText_modifiedDate(),
                         posting.getPostingImage(),
                         posting.getPostingImage_modifiedCount(),
-                        posting.getPostingImage_createdTime(),
-                        posting.getPostingImage_modifiedTime()
+                        posting.getPostingImage_createdDate(),
+                        posting.getPostingImage_modifiedDate()
                 ))
                 .collect(Collectors.toList());
 

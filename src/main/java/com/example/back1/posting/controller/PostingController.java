@@ -71,8 +71,8 @@ public class PostingController {
                 "200",
                 "OK",
                 new PostingFindResponse(userId, storeId, new PostingInformation(postingId, posting.getPostingType(), posting.getPostingChannel(),
-                        posting.getPostingText(), posting.getPostingText_modifiedCount(), posting.getPostingText_createdTime(), posting.getPostingText_modifiedTime(),
-                        posting.getPostingImage(), posting.getPostingImage_modifiedCount(), posting.getPostingImage_createdTime(), posting.getPostingImage_modifiedTime()))
+                        posting.getPostingText(), posting.getPostingText_modifiedCount(), posting.getPostingText_createdDate(), posting.getPostingText_modifiedDate(),
+                        posting.getPostingImage(), posting.getPostingImage_modifiedCount(), posting.getPostingImage_createdDate(), posting.getPostingImage_modifiedDate()))
         );
     }
 

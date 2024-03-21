@@ -37,13 +37,13 @@ public class Posting extends BaseTimeEntity {
 
     private String postingText = null;
     private Long postingText_modifiedCount = 0L;
-    private LocalDateTime postingText_createdTime;
-    private LocalDateTime postingText_modifiedTime;
+    private LocalDateTime postingText_createdDate;
+    private LocalDateTime postingText_modifiedDate;
 
     private String postingImage = null;
     private Long postingImage_modifiedCount = 0L;
-    private LocalDateTime postingImage_createdTime;
-    private LocalDateTime postingImage_modifiedTime;
+    private LocalDateTime postingImage_createdDate;
+    private LocalDateTime postingImage_modifiedDate;
 
     @Builder
     public Posting(Store store, String postingType, String postingChannel, String targetAge,
@@ -61,13 +61,13 @@ public class Posting extends BaseTimeEntity {
 
         this.postingText = null;
         this.postingText_modifiedCount = 0L;
-        this.postingText_createdTime = null;
-        this.postingText_modifiedTime = null;
+        this.postingText_createdDate = null;
+        this.postingText_modifiedDate = null;
 
         this.postingImage = null;
         this.postingImage_modifiedCount = 0L;
-        this.postingImage_createdTime = null;
-        this.postingImage_modifiedTime = null;
+        this.postingImage_createdDate = null;
+        this.postingImage_modifiedDate = null;
     }
 
     public static Posting createPosting(Store store, String postingType, String postingChannel, String targetAge,
@@ -90,9 +90,9 @@ public class Posting extends BaseTimeEntity {
         this.postingText = postingText;
 
         if (this.postingText_modifiedCount == 0) {
-            this.postingText_createdTime = LocalDateTime.now();
+            this.postingText_createdDate = LocalDateTime.now();
         }
-        this.postingText_modifiedTime = LocalDateTime.now();
+        this.postingText_modifiedDate = LocalDateTime.now();
 
         this.postingText_modifiedCount++;
     }
@@ -101,9 +101,9 @@ public class Posting extends BaseTimeEntity {
         this.postingImage = postingImage;
 
         if (this.postingImage_modifiedCount == 0) {
-            this.postingImage_createdTime = LocalDateTime.now();
+            this.postingImage_createdDate = LocalDateTime.now();
         }
-        this.postingImage_modifiedTime = LocalDateTime.now();
+        this.postingImage_modifiedDate = LocalDateTime.now();
 
         this.postingImage_modifiedCount++;
     }
