@@ -91,9 +91,8 @@ public class Posting extends BaseTimeEntity {
 
         if (this.postingText_modifiedCount == 0) {
             this.postingText_createdTime = LocalDateTime.now();
-        } else {
-            this.postingText_modifiedTime = LocalDateTime.now();
         }
+        this.postingText_modifiedTime = LocalDateTime.now();
 
         this.postingText_modifiedCount++;
     }
@@ -103,9 +102,8 @@ public class Posting extends BaseTimeEntity {
 
         if (this.postingImage_modifiedCount == 0) {
             this.postingImage_createdTime = LocalDateTime.now();
-        } else {
-            this.postingImage_modifiedTime = LocalDateTime.now();
         }
+        this.postingImage_modifiedTime = LocalDateTime.now();
 
         this.postingImage_modifiedCount++;
     }
